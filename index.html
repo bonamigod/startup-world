@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Start-up World • Constelação de VC (2006–2026) & Radar de Startups Quentes</title>
+  <meta name="description" content="Levantamento histórico de 2 em 2 anos dos jargões e tags que mais captaram Venture Capital (Seed, Series A, Series B+) em formato de constelação interativa, seguido pela central das startups mais quentes por área." />
+  <meta property="og:title" content="Start-up World • Constelação Histórica de VC & Radar de Startups" />
+  <meta property="og:description" content="Descubra quais buzzwords captaram mais bilhões em rodadas Seed, Series A e Series B de 2006 a 2026 — onde o brilho da estrela é o volume de dinheiro arrecadado." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <canvas id="bg-stars" aria-hidden="true"></canvas>
+
+  <!-- Top Navigation -->
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a href="#top" class="brand">
+        <span class="brand-star">✦</span>
+        <div>
+          <span class="brand-title">START-UP WORLD</span>
+          <span class="brand-sub">VC Buzzword Atlas & Hot Radar</span>
+        </div>
+      </a>
+
+      <nav class="nav-tabs" aria-label="Seções principais">
+        <a href="#constelacao" class="nav-link active" data-nav="constelacao">1. Constelação (06–26)</a>
+        <a href="#cronologia" class="nav-link" data-nav="cronologia">2. Raio-X Histórico</a>
+        <a href="#central-startups" class="nav-link" data-nav="central-startups">3. Startups Quentes</a>
+        <a href="#radar-diario" class="nav-link" data-nav="radar-diario">4. Radar Diário (TAAFT)</a>
+      </nav>
+
+      <button id="share-btn" class="share-btn" type="button" title="Copiar link para compartilhar">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="18" cy="5" r="3"></circle>
+          <circle cx="6" cy="12" r="3"></circle>
+          <circle cx="18" cy="19" r="3"></circle>
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        <span id="share-btn-text">Compartilhar</span>
+      </button>
+    </div>
+  </header>
+
+  <main id="top">
+    <!-- Hero -->
+    <section class="hero container">
+      <div class="hero-badge">PARTE 1 • HISTÓRIA DO CAPITAL DE RISCO (2006 → 2026) + PARTE 2 • RADAR SETORIAL</div>
+      <h1>Onde os bilhões de <span class="gradient-text">Venture Capital</span> realmente brilham</h1>
+      <p class="hero-lead">
+        De 2 em 2 anos, o Vale do Silício troca de vocabulário mágico para destravar cheques de <strong>Seed, Series A e Series B+</strong>.
+        Navegue pela <strong>Constelação de Jargões</strong> — onde <em>o tamanho de cada estrela é proporcional ao dinheiro captado pela tag</em> — e explore abaixo a central das startups mais quentes que estão surgindo agora, separadas por área.
+      </p>
+
+      <div class="hero-metrics">
+        <div class="metric-pill">
+          <span class="metric-label">Janelas Mapeadas</span>
+          <span class="metric-val">11 Eras (2 em 2 anos)</span>
+        </div>
+        <div class="metric-pill">
+          <span class="metric-label">Recorte de Rodadas</span>
+          <span class="metric-val">Seed • Series A • Series B+</span>
+        </div>
+        <div class="metric-pill">
+          <span class="metric-label">Estrela Dominante (2026)</span>
+          <span class="metric-val highlight-cyan">Frontier & Agentic AI (~75% do VC)</span>
+        </div>
+      </div>
+    </section>
+
+      <!-- SECTION 1: Interactive Constellation -->
+    <section id="constelacao" class="section container">
+      <div class="constellation-controls glass-panel">
+        <div class="era-header-row">
+          <div>
+            <span class="eyebrow">MÁQUINA DO TEMPO DO VENTURE CAPITAL • 2006 → 2026</span>
+            <h2 id="era-title" class="era-title">2026 — Hegemonia de Agentic AI, Physical AI & Infra Soberana</h2>
+          </div>
+
+          <div class="controls-right">
+            <!-- Metric Switch: Dollars Raised vs Companies Count -->
+            <div class="stage-segmented metric-segmented" role="group" aria-label="Tamanho da estrela representa">
+              <button type="button" class="metric-mode-btn active" data-metric="funding" title="Tamanho da estrela = Volume financeiro captado">💰 Valor Levantado ($B)</button>
+              <button type="button" class="metric-mode-btn" data-metric="companies" title="Tamanho da estrela = Quantidade de empresas financiadas">🏢 Nº de Empresas</button>
+            </div>
+
+            <div class="stage-segmented" role="group" aria-label="Filtrar estágio da rodada">
+              <button type="button" class="stage-btn active" data-stage="all">Todas Rodadas</button>
+              <button type="button" class="stage-btn" data-stage="seed">Seed</button>
+              <button type="button" class="stage-btn" data-stage="seriesA">Series A</button>
+              <button type="button" class="stage-btn" data-stage="seriesB">Series B+</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Scrubber / Year Slider + Bar Chart per Year -->
+        <div class="time-scrubber-box">
+          <div class="scrubber-top-row">
+            <button id="play-timeline-btn" class="play-btn" type="button">
+              <span id="play-icon">▶</span> Animar Linha do Tempo (2006 → 2026)
+            </button>
+            <div class="scrubber-hint">
+              Arraste a barra de tempo ou clique nas barras anuais abaixo • <button type="button" id="galaxy-mode-btn" class="galaxy-toggle-btn">✦ Ver Galáxia Acumulada (06–26)</button>
+            </div>
+          </div>
+
+          <!-- Per-Year Comparative Bar Chart ($B + Companies) -->
+          <div id="year-bars-chart" class="year-bars-chart" role="tablist" aria-label="Gráfico de barras por ano (2006 a 2026)">
+            <!-- Populated by JS: Interactive bar per year showing height + $B + companies -->
+          </div>
+
+          <!-- Smooth Year Range Slider -->
+          <div class="slider-wrap">
+            <input type="range" id="year-slider" min="0" max="10" step="1" value="10" aria-label="Deslizar pelos anos de 2006 a 2026" />
+            <div id="slider-ticks" class="slider-ticks"></div>
+          </div>
+        </div>
+
+        <div class="era-context-bar">
+          <div class="context-item">
+            <span class="context-tag">Contexto Macro</span>
+            <p id="era-macro-text"></p>
+          </div>
+          <div class="context-item">
+            <span class="context-tag">Dinâmica de Rodadas</span>
+            <p id="era-stage-text"></p>
+          </div>
+          <div class="context-kpis-pair">
+            <div class="context-kpi">
+              <span class="kpi-caption">Volume Global VC</span>
+              <strong id="era-global-vc">$690B</strong>
+            </div>
+            <div class="context-kpi kpi-companies">
+              <span class="kpi-caption">Empresas Mapeadas (Top Tags)</span>
+              <strong id="era-total-companies">11.910</strong>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sky Canvas + Side Inspector -->
+      <div class="constellation-workspace">
+        <div class="sky-wrapper glass-panel">
+          <div class="sky-hud-top">
+            <span class="hud-hint">✦ Tamanho da estrela = <strong id="hud-metric-label" style="color:var(--cyan)">Valor Levantado ($B)</strong> em <span id="hud-stage-label">Todas Rodadas</span> • Clique na estrela para detalhes</span>
+            <div id="category-legend" class="category-legend"></div>
+          </div>
+
+          <div id="sky-container" class="sky-container">
+            <svg id="constellation-svg" viewBox="0 0 1000 620" preserveAspectRatio="xMidYMid meet" aria-label="Mapa de constelação de jargões de Venture Capital"></svg>
+          </div>
+        </div>
+
+        <!-- Star Inspector Panel -->
+        <aside id="star-inspector" class="star-inspector glass-panel" aria-live="polite">
+          <!-- Populated dynamically when clicking/selecting a star -->
+        </aside>
+      </div>
+    </section>
+
+    <!-- SECTION 2: Historical 2-by-2 Year Matrix -->
+    <section id="cronologia" class="section container">
+      <div class="section-head">
+        <span class="eyebrow">LEVANTAMENTO HISTÓRICO COMPLETO • 2 EM 2 ANOS</span>
+        <h2>A Evolução das "Tags que Arrecadam Bilhões" (2006 – 2026)</h2>
+        <p>Como as teses de Seed, Series A e Series B migraram da Web 2.0 ao CleanTech 1.0, SoLoMo, Big Data, Uber-for-X, Crypto/Web3 até a hiperconcentração atual em IA Agêntica e Robótica.</p>
+      </div>
+
+      <div id="timeline-grid" class="timeline-grid">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: Hottest Emerging Startups Hub -->
+    <section id="central-startups" class="section container">
+      <div class="section-head">
+        <span class="eyebrow">CENTRAL DE MAPEAMENTO • SAFRA 2025 / 2026</span>
+        <h2>Radar das Start-ups Mais "Quentes" por Área</h2>
+        <p>Mapeamento curado das empresas emergentes e em hiper-escala que estão concentrando os maiores cheques e disputas de <em>term sheet</em> dos principais fundos globais (Sequoia, a16z, Founders Fund, Thrive, Benchmark, Lightspeed, Khosla e Y Combinator).</p>
+      </div>
+
+      <!-- Filters: Sector + Stage + Search -->
+      <div class="hub-toolbar glass-panel">
+        <div id="sector-pills" class="sector-pills" role="tablist" aria-label="Filtrar startups por área">
+          <!-- Populated by JS -->
+        </div>
+
+        <div class="hub-filters-row">
+          <div class="stage-filter-chips" id="hub-stage-chips">
+            <button type="button" class="chip active" data-hubstage="all">Todos Estágios</button>
+            <button type="button" class="chip" data-hubstage="Seed">Seed / Mega-Seed</button>
+            <button type="button" class="chip" data-hubstage="Series A">Series A</button>
+            <button type="button" class="chip" data-hubstage="Series B">Series B+</button>
+          </div>
+
+          <div class="search-box">
+            <input type="search" id="startup-search" placeholder="Buscar startup, tag (ex: Robotics, Nuclear, Coding) ou fundo..." aria-label="Buscar startups" />
+          </div>
+        </div>
+      </div>
+
+      <!-- Sector Constellation / Cards Container -->
+      <div id="sectors-container" class="sectors-container">
+        <!-- Populated by JS -->
+      </div>
+    </section>
+
+    <!-- SECTION 4: Daily Agent Feed (There's An AI For That) -->
+    <section id="radar-diario" class="section container">
+      <div class="section-head">
+        <span class="eyebrow">AGENTE AUTÔNOMO • ATUALIZAÇÃO DIÁRIA ÀS 08:00 (AMERICA/CUIABA)</span>
+        <h2>Radar Diário: There's An AI For That — Faz Sentido ou Hype?</h2>
+        <p>Monitoramento diário das novas startups e ferramentas listadas no <a href="https://theresanaiforthat.com/new/" target="_blank" rel="noopener" style="color:var(--cyan)">theresanaiforthat.com</a>, classificadas por área e avaliadas criticamente sobre tese, defensabilidade (moat) e potencial real de negócio.</p>
+      </div>
+
+      <div class="daily-feed-wrap glass-panel">
+        <div class="daily-feed-bar">
+          <div class="daily-status">
+            <span class="pulse-dot"></span>
+            <span>Fonte: <strong>There's An AI For That (/new)</strong></span>
+            <span class="daily-sep">•</span>
+            <span id="daily-last-updated">Última varredura: —</span>
+          </div>
+          <div class="daily-filter-pills" id="daily-verdict-filters">
+            <button type="button" class="chip active" data-verdict="all">Todas</button>
+            <button type="button" class="chip" data-verdict="sim">✅ Faz Sentido</button>
+            <button type="button" class="chip" data-verdict="atencao">⚠️ Nicho / Wrapper</button>
+            <button type="button" class="chip" data-verdict="nao">❌ Não Faz Sentido</button>
+          </div>
+        </div>
+
+        <div id="daily-entries-grid" class="startup-cards-grid" style="margin-top:18px">
+          <!-- Populated from daily_updates.js -->
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer container">
+    <div class="footer-inner">
+      <div>
+        <strong>Start-up World</strong> • Levantamento Histórico de Jargões de VC (2006–2026) & Central de Startups Emergentes.
+        <p class="footer-note">Estimativas consolidadas a partir de relatórios públicos de mercado e tendências históricas (PitchBook, Crunchbase, Dealroom e rodadas divulgadas de Seed, Series A e Series B+).</p>
+      </div>
+      <a href="#top" class="back-top">Voltar ao topo ↑</a>
+    </div>
+  </footer>
+
+  <div id="toast" class="toast" role="status" aria-live="polite">Link copiado para a área de transferência!</div>
+
+  <script src="data.js"></script>
+  <script src="daily_updates.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
