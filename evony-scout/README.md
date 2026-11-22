@@ -87,3 +87,38 @@ python -m pytest tests
 Os testes usam imagens sintéticas. **O protótipo ainda não foi testado
 contra o jogo real**: limiar, tamanho do tile e regiões de OCR precisam ser
 calibrados na sua tela.
+
+## Servidor da aliança (base compartilhada)
+
+Vários membros rodando o Scout alimentam uma base única, com página de busca
+e alerta. A cobertura do mapa vem das pessoas jogando: quanto mais membros
+usam, mais do mapa aparece. Não há conta-robô nem varredura automática.
+
+**Subir o servidor** (um PC ou VPS que os membros consigam acessar; só
+precisa de Python, sem instalar nada):
+
+```
+set SCOUT_KEY=uma-senha-da-alianca
+python server/server.py --port 8000
+```
+
+**Ligar cada Scout ao servidor**, no `config.json` de cada membro:
+
+```
+"servidor": { "url": "http://IP-DO-SERVIDOR:8000", "chave": "uma-senha-da-alianca", "nome": "seu-nick" }
+```
+
+**Buscar:** abra `http://IP-DO-SERVIDOR:8000/` no navegador (PC ou celular),
+informe a chave e filtre por tipo, nível, raio em volta da sua cidade e
+tempo desde a última vez que o alvo foi visto. Os campos "Alertar" definem
+o que fica destacado e toca som quando aparece.
+
+Observações:
+
+- O mesmo alvo visto por duas pessoas vira uma linha só, com o horário mais
+  recente.
+- A conexão é HTTP simples. Para uso fora da rede local, coloque o servidor
+  atrás de HTTPS (por exemplo, um proxy reverso), senão a chave trafega em
+  texto aberto.
+- Todos os membros devem usar os mesmos nomes de template (`boss`,
+  `monstro`, ...) para os filtros funcionarem.

@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scout da Aliança</title>
+<style>
+  :root { --bg:#11151c; --panel:#1a202b; --line:#2b3444; --text:#e6eaf0; --dim:#8b97a8; --accent:#f2b632; }
+  * { box-sizing:border-box; }
+  body { margin:0; background:var(--bg); color:var(--text); font:15px/1.4 system-ui, sans-serif; }
+  header { padding:14px 16px; border-bottom:1px solid var(--line); display:flex; gap:12px; align-items:baseline; flex-wrap:wrap; }
+  h1 { font-size:18px; margin:0; }
+  #status { color:var(--dim); font-size:13px; }
+  form { display:grid; grid-template-columns:repeat(auto-fit,minmax(130px,1fr)); gap:10px; padding:14px 16px; background:var(--panel); border-bottom:1px solid var(--line); }
+  label { display:flex; flex-direction:column; gap:4px; font-size:12px; color:var(--dim); }
+  input, select { background:var(--bg); color:var(--text); border:1px solid var(--line); border-radius:6px; padding:7px 8px; font:inherit; min-width:0; }
+  .wrap { overflow-x:auto; padding:0 16px 24px; }
+  table { width:100%; border-collapse:collapse; margin-top:12px; }
+  th, td { padding:8px 10px; text-align:left; border-bottom:1px solid var(--line); white-space:nowrap; }
+  th { font-size:12px; color:var(--dim); font-weight:600; }
+  td.num { font-variant-numeric:tabular-nums; }
+  tr.prio td { background:rgba(242,182,50,.14); }
+  tr.prio td:first-child { box-shadow:inset 3px 0 var(--accent); }
+  tr.old td { color:var(--dim); }
+  button.copy { background:none; border:1px solid var(--line); color:var(--text); border-radius:6px; padding:3px 8px; cursor:pointer; font:inherit; }
+  button.copy:hover { border-color:var(--accent); }
+  #empty { color:var(--dim); padding:24px 0; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Scout da Aliança</h1>
+  <span id="status">conectando…</span>
+</header>
+<form id="f">
+  <label>Chave da aliança<input id="key" type="password" autocomplete="off"></label>
+  <label>Tipo<select id="kind"><option value="">Todos</option></select></label>
+  <label>Nível mín.<input id="level_min" type="number" min="1"></label>
+  <label>Nível máx.<input id="level_max" type="number" min="1"></label>
+  <label>Minha cidade X<input id="cx" type="number"></label>
+  <label>Minha cidade Y<input id="cy" type="number"></label>
+  <label>Raio (quadrados)<input id="radius" type="number" min="1"></label>
+  <label>Visto nos últimos (min)<input id="max_age_min" type="number" min="1" value="60"></label>
+  <label>Alertar: tipo<input id="p_kind" placeholder="ex.: boss"></label>
+  <label>Alertar: nível mín.<input id="p_level" type="number" min="1"></label>
+</form>
+<div class="wrap">
+  <table>
+    <thead><tr><th>Alvo</th><th>Nível</th><th>Coordenada</th><th>Distância</th><th>Visto há</th><th>Por</th><th></th></tr></thead>
+    <tbody id="rows"></tbody>
+  </table>
+  <div id="empty" hidden>Nenhum alvo com esses filtros.</div>
+</div>
+<script>
+const $ = id => document.getElementById(id);
+const fields = ["key","kind","level_min","level_max","cx","cy","radius","max_age_min","p_kind","p_level"];
+const seen = new Set();
+let first = true;
+
+function load(k){ try { return localStorage.getItem("scout_"+k); } catch(e){ return null; } }
+function save(k,v){ try { localStorage.setItem("scout_"+k, v); } catch(e){} }
+
+fields.forEach(k => { const v = load(k); if (v !== null && k !== "kind") $(k).value = v; });
+let wantedKind = load("kind") || "";
+$("f").addEventListener("input", () => { fields.forEach(k => save(k, $(k).value)); wantedKind = $("kind").value; refresh(); });
+$("f").addEventListener("submit", e => e.preventDefault());
+
+function age(s){ return s < 60 ? s + " s" : s < 3600 ? Math.floor(s/60) + " min" : Math.floor(s/3600) + " h"; }
+function isPrio(t){
+  const k = $("p_kind").value.trim().toLowerCase(), l = Number($("p_level").value);
+  if (!k && !l) return false;
+  if (k && !t.kind.toLowerCase().includes(k)) return false;
+  if (l && !(t.level >= l)) return false;
+  return true;
+}
+function beep(){
+  try {
+    const a = new (window.AudioContext || window.webkitAudioContext)(), o = a.createOscillator(), g = a.createGain();
+    o.connect(g); g.connect(a.destination); o.frequency.value = 1320; g.gain.value = .15;
+    o.start(); o.stop(a.currentTime + .25);
+  } catch(e){}
+}
+function cell(text, cls){ const td = document.createElement("td"); td.textContent = text; if (cls) td.className = cls; return td; }
+
+async function refresh(){
+  const qs = new URLSearchParams();
+  ["kind","level_min","level_max","cx","cy","radius","max_age_min"].forEach(k => {
+    const v = k === "kind" ? wantedKind : $(k).value; if (v !== "") qs.set(k, v);
+  });
+  let data;
+  try {
+    const r = await fetch("/api/targets?" + qs, { headers: { "X-Scout-Key": $("key").value } });
+    if (r.status === 401) { $("status").textContent = "chave inválida — informe a chave da aliança"; return; }
+    data = await r.json();
+  } catch(e){ $("status").textContent = "sem conexão com o servidor"; return; }
+
+  const sel = $("kind");
+  sel.replaceChildren(new Option("Todos", ""), ...data.tipos.map(t => new Option(t, t)));
+  sel.value = data.tipos.includes(wantedKind) ? wantedKind : "";
+
+  const rows = data.alvos.map(t => ({ ...t, prio: isPrio(t) }));
+  rows.sort((a, b) => (b.prio - a.prio));
+  let alert = false;
+  const body = $("rows"); body.replaceChildren();
+  for (const t of rows){
+    const tr = document.createElement("tr");
+    if (t.prio) tr.className = "prio"; else if (t.age_s > 900) tr.className = "old";
+    const coord = t.x + "," + t.y;
+    tr.append(cell((t.prio ? "★ " : "") + t.kind), cell(t.level ?? "?", "num"), cell(coord, "num"),
+              cell(t.dist ?? "–", "num"), cell(age(t.age_s), "num"), cell(t.reporter || "–"));
+    const td = document.createElement("td"), b = document.createElement("button");
+    b.className = "copy"; b.type = "button"; b.textContent = "Copiar";
+    b.onclick = () => { navigator.clipboard?.writeText(coord); b.textContent = "Copiado"; setTimeout(() => b.textContent = "Copiar", 1200); };
+    td.append(b); tr.append(td); body.append(tr);
+    if (t.prio && !seen.has(t.id)) { seen.add(t.id); if (!first) alert = true; }
+  }
+  $("empty").hidden = rows.length > 0;
+  $("status").textContent = rows.length + " alvos · atualizado " + new Date().toLocaleTimeString();
+  if (alert) beep();
+  first = false;
+}
+refresh();
+setInterval(refresh, 10000);
+</script>
+</body>
+</html>

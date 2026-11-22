@@ -89,3 +89,54 @@ def test_priority_and_tracker():
     assert not new
     tr.update("monstro", 3, (501, 500), 0.9)
     assert [t.kind for t in tr.sorted()] == ["boss", "monstro"]
+
+
+def test_server_and_uploader(tmp_path):
+    import json
+    import threading
+    import urllib.error
+    import urllib.request
+
+    sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "server"))
+    import server as srv
+    from scout.tracker import Target
+    from scout.uploader import Uploader
+
+    httpd = srv.serve(0, str(tmp_path / "t.db"), "segredo")
+    port = httpd.server_address[1]
+    threading.Thread(target=httpd.serve_forever, daemon=True).start()
+    base = f"http://127.0.0.1:{port}"
+
+    def get(path, key="segredo"):
+        req = urllib.request.Request(base + path, headers={"X-Scout-Key": key})
+        return json.loads(urllib.request.urlopen(req, timeout=5).read())
+
+    up = Uploader(base, "segredo", "ana", interval=3600)
+    up.queue(Target("boss", 12, (510, 500), 10, True, 0.9))
+    up.queue(Target("monstro", 3, (700, 700), 280, False, 0.9))
+    assert up.flush()
+    up2 = Uploader(base, "segredo", "bia", interval=3600)
+    up2.queue(Target("boss", None, (511, 500), 11, False, 0.9))  # mesmo boss
+    assert up2.flush()
+
+    all_ = get("/api/targets?cx=500&cy=500")
+    assert [t["kind"] for t in all_["alvos"]] == ["boss", "monstro"]
+    boss = all_["alvos"][0]
+    assert boss["level"] == 12 and boss["reports"] == 2 and boss["reporter"] == "bia"
+    assert all_["tipos"] == ["boss", "monstro"]
+    assert len(get("/api/targets?cx=500&cy=500&radius=50")["alvos"]) == 1
+    assert len(get("/api/targets?level_min=10")["alvos"]) == 1
+    assert len(get("/api/targets?kind=monstro")["alvos"]) == 1
+
+    try:
+        get("/api/targets", key="errada")
+        assert False, "deveria recusar"
+    except urllib.error.HTTPError as e:
+        assert e.code == 401
+
+    bad = Uploader(base, "errada", "x", interval=3600)
+    bad.queue(Target("boss", 1, (1, 1), 0, False, 0.9))
+    assert not bad.flush() and bad.pending          # fica na fila para reenviar
+
+    assert b"Scout" in urllib.request.urlopen(base + "/", timeout=5).read()
+    httpd.shutdown()

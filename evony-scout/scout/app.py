@@ -14,6 +14,7 @@ from tkinter import filedialog, ttk
 
 from .capture import Capture
 from .engine import Engine, load_config
+from .uploader import Uploader
 
 
 def beep():
@@ -30,6 +31,9 @@ class App:
         self.cfg = load_config()
         self.engine = Engine(self.cfg)
         self.capture = Capture(self.cfg["janela"]["titulo"], self.cfg["janela"].get("regiao"))
+        srv = self.cfg.get("servidor") or {}
+        self.uploader = (Uploader(srv["url"], srv.get("chave", ""), srv.get("nome", ""))
+                         if srv.get("url") else None)
         self.running = True
         self.status = "iniciando..."
         self.lock = threading.Lock()
@@ -101,6 +105,11 @@ class App:
         if any(new and tgt.priority for _, tgt, new in results):
             beep()
         self.status = f"centro {center[0]},{center[1]} | {len(results)} na tela | {ms:.0f} ms"
+        if self.uploader:
+            for _, tgt, _new in results:
+                self.uploader.queue(tgt)
+            if self.uploader.last_error:
+                self.status += " | servidor fora do ar"
 
     # ---- UI ----------------------------------------------------------------
     manual_text = ""

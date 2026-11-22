@@ -3,7 +3,10 @@
     "titulo": "Evony",
     "regiao": null
   },
-  "minha_cidade": [500, 500],
+  "minha_cidade": [
+    500,
+    500
+  ],
   "mapa": {
     "tile_largura_px": 128,
     "tile_altura_px": 64,
@@ -13,13 +16,25 @@
   },
   "deteccao": {
     "limiar": 0.8,
-    "escalas": [1.0],
+    "escalas": [
+      1.0
+    ],
     "reducao": 0.5,
     "fps": 4,
     "rotulo_nivel": null
   },
   "prioridades": [
-    { "tipo": "boss", "nivel_min": 10 },
-    { "tipo": "inimigo" }
-  ]
+    {
+      "tipo": "boss",
+      "nivel_min": 10
+    },
+    {
+      "tipo": "inimigo"
+    }
+  ],
+  "servidor": {
+    "url": null,
+    "chave": "",
+    "nome": ""
+  }
 }
