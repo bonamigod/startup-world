@@ -1,40 +1,21 @@
 // Daily Scout Feed — Updated automatically by the Scheduled Agent monitoring There's An AI For That (theresanaiforthat.com)
 window.DAILY_TAAFT_UPDATES = {
-  lastUpdated: "22/11/2026 às 09:00 (America/Cuiaba)",
+  lastUpdated: "22/11/2026 às 10:00 (America/Cuiaba)",
   source: "https://theresanaiforthat.com/new/",
   entries: [
     {
-      name: "Arize AX (v21.1)",
-      url: "https://theresanaiforthat.com/ai/arize-ax/",
+      name: "outbound.dev",
+      url: "https://theresanaiforthat.com/ai/outbound-dev/",
       date: "22/11/2026",
       area: "Agentic AI & DevTools",
-      whatItDoes: "Plataforma de observabilidade, avaliação contínua e diagnóstico de causa-raiz (Swarm Observability) para agentes autônomos de IA em produção.",
+      whatItDoes: "Servidor MCP e API pay-as-you-go (sem assinatura fixa) para que agentes como Claude, Cursor e ChatGPT pesquisem contatos B2B, enriqueçam e-mail/telefone e preparem cadências com aprovação humana.",
       verdictCode: "sim",
       verdictLabel: "✅ Faz Sentido",
-      analysis: "Tese clássica de 'picaretas e pás' (Datadog para agentes): quanto mais empresas colocam enxames multi-agentes em produção, maior a dor de auditar falhas não-determinísticas. Cria forte lock-in via telemetria profunda e independe de qual LLM base vencer a corrida.",
-      tags: ["Agent Ops", "Observability", "AI Infra"]
-    },
-    {
-      name: "Phia",
-      url: "https://theresanaiforthat.com/ai/phia/",
-      date: "22/11/2026",
-      area: "Consumer AI & Commerce",
-      whatItDoes: "Assistente de compras e 'guarda-roupa digital' que cataloga roupas automaticamente via recibos do Gmail e fotos, sugerindo looks e comparando preços/cupons em mais de 220 mil lojas.",
-      verdictCode: "sim",
-      verdictLabel: "✅ Faz Sentido",
-      analysis: "Elimina a fricção de onboarding que matava apps antigos de moda (ninguém fotografa peça por peça) ao ingerir histórico de e-mail e checkout. Posiciona-se direto na transação (modelo Honey/Rakuten turbinado por grafo de estilo pessoal), embora carregue risco de dependência das APIs de e-mail e extensões.",
-      tags: ["Agentic Commerce", "Consumer AI", "Retail Graph"]
-    },
-    {
-      name: "Kliv",
-      url: "https://theresanaiforthat.com/ai/kliv/",
-      date: "22/11/2026",
-      area: "Agentic AI & DevTools",
-      whatItDoes: "Construtor conversacional full-stack com banco RLS, autenticação passkey, checkout/impostos Stripe nativos e sandbox 'time-travel' para testar renovações, cobrado por janelas de uso em vez de créditos por mensagem.",
-      verdictCode: "atencao",
-      verdictLabel: "⚠️ Nicho / Wrapper",
-      analysis: "Ataca dores reais do vibe-coding (ansiedade de queimar créditos e boilerplate de cobrança SaaS), mas entra atrasado num mercado já dominado por Lovable, Bolt, Replit e v0. Preço por janela e template Stripe são features fáceis de copiar pelos incumbentes, exigindo CAC altíssimo para escalar.",
-      tags: ["Vibe Coding", "Full-Stack Builder", "Micro-SaaS"]
+      analysis: "Foge da guerra sangrenta de dashboards SaaS ao vender infraestrutura de dados e envio direto no protocolo MCP, cobrando por uso ($0.01/e-mail). Captura desenvolvedores, agências de IA e 'solopreneurs' que já operam dentro do Claude/Cursor.",
+      copyCode: "copiar",
+      copyLabel: "🚀 Vale Copiar / Tropicalizar",
+      copyIdea: "OURO NO BRASIL: criar um 'OutboundBR MCP' pré-pago no PIX conectando Claude/Cursor/n8n à base de CNPJs da Receita Federal (CNAE, sócios do QSA, empresas recém-abertas) + enriquecimento de WhatsApp validado + disparo assistido. Bases gringas são fracas em PMEs brasileiras e o formato MCP exige quase zero front-end.",
+      tags: ["MCP Server", "Agentic Outbound", "Pay-per-use"]
     },
     {
       name: "SecureSaaS (v2.0)",
@@ -45,7 +26,38 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "atencao",
       verdictLabel: "⚠️ Nicho / Wrapper",
       analysis: "Surfa na onda real de apps vulneráveis criados por 'vibe coders' sem base de AppSec. Porém, para escala de Venture Capital, fica espremido entre gigantes enterprise (Snyk, Semgrep, Wiz) no topo e agentes de revisão de segurança já embutidos nativamente no GitHub/Claude Code na base.",
-      tags: ["AppSec", "DevSecOps", "SMB Security"]
+      copyCode: "copiar",
+      copyLabel: "🚀 Vale Copiar / Tropicalizar",
+      copyIdea: "EXCELENTE MICRO-SAAS DE CAIXA RÁPIDO: para fundo bilionário é pequeno, mas para nós construirmos é ótimo. Milhares de projetos no Brasil sobem em Lovable + Supabase com tabelas sem RLS, chaves vazadas e zero LGPD. Um scanner gratuito que aponta '3 tabelas abertas no seu Supabase' e vende o monitoramento + prompt de correção por R$ 49–97/mês converte no medo imediato.",
+      tags: ["AppSec", "Vibe Coding Shield", "SMB Security"]
+    },
+    {
+      name: "Phia",
+      url: "https://theresanaiforthat.com/ai/phia/",
+      date: "22/11/2026",
+      area: "Consumer AI & Commerce",
+      whatItDoes: "Assistente de compras e 'guarda-roupa digital' que cataloga roupas automaticamente via recibos do Gmail e fotos, sugerindo looks e comparando preços/cupons em mais de 220 mil lojas.",
+      verdictCode: "sim",
+      verdictLabel: "✅ Faz Sentido",
+      analysis: "Elimina a fricção de onboarding que matava apps antigos de moda (ninguém fotografa peça por peça) ao ingerir histórico de e-mail e checkout. Posiciona-se direto na transação (modelo Honey/Rakuten turbinado por grafo de estilo pessoal), embora carregue risco de dependência das APIs de e-mail e extensões.",
+      copyCode: "copiar",
+      copyLabel: "🚀 Vale Copiar / Tropicalizar",
+      copyIdea: "COPIAR A MECÂNICA EM OUTRO NICHO: roube o 'onboarding zero-fricção lendo notas fiscais no e-mail' e aplique em (1) Recompra de Suplementos/Farmácia via WhatsApp (avisa quando o pote/remédio contínuo vai acabar já com link afiliado) ou (2) Cofre B2B para PMEs que lê todas as NFs/faturas no e-mail financeiro e alerta renovações de SaaS e garantias.",
+      tags: ["Agentic Commerce", "Zero-Friction", "Affiliate Engine"]
+    },
+    {
+      name: "Arize AX (v21.1)",
+      url: "https://theresanaiforthat.com/ai/arize-ax/",
+      date: "22/11/2026",
+      area: "Agentic AI & DevTools",
+      whatItDoes: "Plataforma de observabilidade, avaliação contínua e diagnóstico de causa-raiz (Swarm Observability) para agentes autônomos de IA em produção.",
+      verdictCode: "sim",
+      verdictLabel: "✅ Faz Sentido",
+      analysis: "Tese clássica de 'picaretas e pás' (Datadog para agentes): quanto mais empresas colocam enxames multi-agentes em produção, maior a dor de auditar falhas não-determinísticas. Cria forte lock-in via telemetria profunda e independe de qual LLM base vencer a corrida.",
+      copyCode: "adaptar",
+      copyLabel: "🧩 Adaptar em Nicho",
+      copyIdea: "NÃO copie como ferramenta dev genérica (pesada demais). Adapte como 'Auditor de Bots de WhatsApp para Clínicas e Imobiliárias': conecte na Z-API/Evolution API, audite toda noite as conversas do agente da empresa e mande no WhatsApp do dono quantas vendas o bot perdeu por alucinar preço ou convênio, com ajuste em 1 clique.",
+      tags: ["Agent Ops", "Observability", "AI Infra"]
     },
     {
       name: "Kenso",
@@ -56,7 +68,24 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "atencao",
       verdictLabel: "⚠️ Nicho / Wrapper",
       analysis: "Reduz o custo operacional de empilhar múltiplas ferramentas de GTM, mas disputa o oceano mais saturado de SaaS B2B contra Clay, Apollo, 11x e Artisan. Dados enriquecidos de terceiros viraram commodity e a eficácia de cold outbound sofre compressão estrutural pelos filtros anti-spam de IA.",
-      tags: ["B2B Outbound", "AI SDR", "Sales Ops"]
+      copyCode: "adaptar",
+      copyLabel: "🧩 Adaptar em Nicho",
+      copyIdea: "Não faça CRM outbound horizontal; copie só o motor de 'Sinais de Intenção' usando fontes públicas brasileiras: monitorar Diários Oficiais, alvarás de obras, registros de marca no INPI ou abertura de clínicas e entregar todo dia no WhatsApp do representante comercial os 10 leads que acabaram de ter o evento-gatilho.",
+      tags: ["B2B Outbound", "Intent Signals", "Sales Ops"]
+    },
+    {
+      name: "Kliv",
+      url: "https://theresanaiforthat.com/ai/kliv/",
+      date: "22/11/2026",
+      area: "Agentic AI & DevTools",
+      whatItDoes: "Construtor conversacional full-stack com banco RLS, autenticação passkey, checkout/impostos Stripe nativos e sandbox 'time-travel' para testar renovações, cobrado por janelas de uso em vez de créditos por mensagem.",
+      verdictCode: "atencao",
+      verdictLabel: "⚠️ Nicho / Wrapper",
+      analysis: "Ataca dores reais do vibe-coding (ansiedade de queimar créditos e boilerplate de cobrança SaaS), mas entra atrasado num mercado já dominado por Lovable, Bolt, Replit e v0. Preço por janela e template Stripe são features fáceis de copiar pelos incumbentes, exigindo CAC altíssimo para escalar.",
+      copyCode: "adaptar",
+      copyLabel: "🧩 Adaptar em Nicho",
+      copyIdea: "Competir de frente com o Lovable é suicídio de caixa. A sacada copiável é a 'infra financeira nativa' tropicalizada: um gerador/boilerplate vertical (ex: para clínicas, clubes esportivos ou consultorias) que já nasce com PIX Automático, Asaas, WhatsApp e emissão automática de NFS-e prontos.",
+      tags: ["Vibe Coding", "Full-Stack Builder", "Micro-SaaS"]
     },
     {
       name: "StudyTexter",
@@ -67,6 +96,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "nao",
       verdictLabel: "❌ Não Faz Sentido",
       analysis: "Péssima equação para VC: combina alto risco regulatório/reputacional de integridade acadêmica com churn estrutural (o aluno entrega o TCC e cancela). Além disso, é diretamente canibalizado por Gemini/OpenAI Deep Research e NotebookLM, que sintetizam literatura real dentro das assinaturas padrão.",
+      copyCode: "evitar",
+      copyLabel: "🛑 Cilada Copiar",
+      copyIdea: "Cilada: churn de 100% após a entrega do TCC e concorrência gratuita dos LLMs. Se quiser atuar próximo, inverta para B2B recorrente: gerador de Laudos Técnicos de Engenharia/Medicina do Trabalho (PGR/PCMSO) com normas ABNT/NRs estritas.",
       tags: ["EdTech", "Structural Churn", "LLM Cannibalized"]
     },
     {
@@ -78,6 +110,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "nao",
       verdictLabel: "❌ Não Faz Sentido",
       analysis: "Commodity pura sem qualquer moat em 2026: segmentação de fundo com 1 clique já é gratuita e nativa no iOS/macOS, Windows, Canva, Figma, Photoshop e modelos WebGPU abertos. Zero poder de precificação e retorno sobre aquisição (LTV/CAC) inviável.",
+      copyCode: "evitar",
+      copyLabel: "🛑 Cilada Copiar",
+      copyIdea: "Armadilha clássica: facílimo de programar num fim de semana, impossível de pagar o tráfego pago. Só faz sentido como feature invisível dentro de um integrador de catálogo para sellers de Mercado Livre/Shopee.",
       tags: ["Thin Wrapper", "Image Utility", "Commodity"]
     },
     {
@@ -89,6 +124,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "nao",
       verdictLabel: "❌ Não Faz Sentido",
       analysis: "Exemplo clássico de 'prompt wrapper' cosmético sobre LLM base (até a descrição no diretório foi gerada via ChatGPT). Sem tecnologia proprietária, sem retenção defensável ou barreira de entrada — qualquer usuário obtém o mesmo resultado de graça pedindo ao ChatGPT ou Claude.",
+      copyCode: "evitar",
+      copyLabel: "🛑 Cilada Copiar",
+      copyIdea: "Site avulso de tarô não retém nem monetiza. O único formato que fatura nesse nicho B2C é assinatura barata no WhatsApp com áudios diários hiper-humanizados, mas exige máquina pesada de criativos em TikTok/Reels.",
       tags: ["Prompt Wrapper", "Zero Moat", "B2C Toy"]
     },
     {
@@ -100,6 +138,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "sim",
       verdictLabel: "✅ Faz Sentido",
       analysis: "Resolve dor real de orquestração multi-sistema com gatilhos persistentes. O risco competitivo vem de Zapier/n8n e agentes nativos do Workspace, mas tem forte retenção quando integrado aos processos da empresa.",
+      copyCode: "adaptar",
+      copyLabel: "🧩 Adaptar em Nicho",
+      copyIdea: "Em vez de plataforma genérica de agentes, empacote 'Funcionários Digitais Prontos' para uma vertical brasileira (ex: Secretária + Cobrança PIX + Confirmação de Agenda para clínicas odontológicas ou quadras esportivas).",
       tags: ["Autonomous Agents", "Workflow", "B2B Ops"]
     },
     {
@@ -111,6 +152,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "sim",
       verdictLabel: "✅ Faz Sentido",
       analysis: "Forte tração de receita recorrente (ARR) democratizando MVPs e ferramentas internas para não-programadores. Precisa defender margem contra o custo de tokens de inferência e lock-in fraco.",
+      copyCode: "evitar",
+      copyLabel: "🛑 Cilada Copiar",
+      copyIdea: "Não tente clonar o Lovable; use-o como fábrica interna para lançar micro-SaaS verticais em 48h para dores específicas de clientes B2B.",
       tags: ["Vibe Coding", "Full-Stack AI", "App Builder"]
     },
     {
@@ -122,6 +166,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "sim",
       verdictLabel: "✅ Faz Sentido",
       analysis: "Infraestrutura crítica ('picaretas e pás'): 80% dos sistemas corporativos (portais governamentais, ERPs antigos, seguradoras) não têm API moderna.",
+      copyCode: "copiar",
+      copyLabel: "🚀 Vale Copiar / Tropicalizar",
+      copyIdea: "MINA DE OURO NO BRASIL: usar Browser Use/Playwright para automatizar portais públicos e legados sem API (prefeituras/NFS-e, tribunais PJe/e-SAJ, portais de convênios médicos TISS e Detran) cobrando mensalidade B2B.",
       tags: ["Browser Infra", "RPA 2.0", "Agent Tooling"]
     },
     {
@@ -133,6 +180,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "nao",
       verdictLabel: "❌ Não Faz Sentido",
       analysis: "Zero defensabilidade (moat). São 'thin wrappers' sobre prompts de LLMs que já existem nativamente no Claude/ChatGPT/Gamma, sofrendo com churn altíssimo e saturação de spam nas caixas de entrada.",
+      copyCode: "evitar",
+      copyLabel: "🛑 Cilada Copiar",
+      copyIdea: "Zero diferencial. Qualquer prompt gratuito no Claude ou Gamma entrega melhor.",
       tags: ["Thin Wrapper", "High Churn", "Commodity"]
     },
     {
@@ -144,6 +194,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "atencao",
       verdictLabel: "⚠️ Nicho / Wrapper",
       analysis: "A dor médica é gigantesca, mas o mercado já consolidou gigantes bem capitalizados (Abridge, Ambience). Novos entrantes no TAAFT só sobrevivem se focarem em nichos regulatórios locais (ex: TISS/TUSS no Brasil ou odontologia/veterinária).",
+      copyCode: "copiar",
+      copyLabel: "🚀 Vale Copiar / Tropicalizar",
+      copyIdea: "Forte oportunidade se hiper-verticalizado para burocracia brasileira: transcrever consulta + preencher automaticamente guia TISS/TUSS e justificativa técnica contra glosa de planos de saúde (Unimed, Bradesco, SulAmérica).",
       tags: ["Clinical AI", "Vertical Niche", "Health Ops"]
     },
     {
@@ -155,6 +208,9 @@ window.DAILY_TAAFT_UPDATES = {
       verdictCode: "sim",
       verdictLabel: "✅ Faz Sentido",
       analysis: "Substitui horas manuais caras de BPO financeiro com ROI imediato. Quando adaptado à legislação fiscal local, cria altíssimo custo de troca.",
+      copyCode: "copiar",
+      copyLabel: "🚀 Vale Copiar / Tropicalizar",
+      copyIdea: "Copiável e muito lucrativo no Brasil via WhatsApp: o cliente da contabilidade/BPO manda foto de comprovante PIX e XML/DANFE no grupo do WhatsApp e o agente já classifica e lança direto no ContaAzul ou Omie.",
       tags: ["Agentic FinTech", "BPO Automation", "Back-Office"]
     }
   ]

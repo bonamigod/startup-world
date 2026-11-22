@@ -735,6 +735,9 @@
 
     const items = (feed.entries || []).filter((item) => {
       if (verdictFilter === "all") return true;
+      if (verdictFilter === "copiar" || verdictFilter === "adaptar") {
+        return item.copyCode === verdictFilter;
+      }
       return item.verdictCode === verdictFilter;
     });
 
@@ -754,6 +757,12 @@
             : item.verdictCode === "nao"
             ? "verdict-nao"
             : "verdict-atencao";
+        const cClass =
+          item.copyCode === "copiar"
+            ? "copy-yes"
+            : item.copyCode === "adaptar"
+            ? "copy-niche"
+            : "copy-avoid";
         return `
           <article class="startup-card">
             <div class="sc-top">
@@ -769,8 +778,20 @@
             <p class="sc-desc">${item.whatItDoes}</p>
 
             <div class="verdict-reason">
-              <strong>Faz sentido?</strong> ${item.analysis}
+              <strong>Lente VC:</strong> ${item.analysis}
             </div>
+
+            ${
+              item.copyIdea
+                ? `<div class="copy-idea-box ${cClass}">
+                    <div class="copy-idea-head">
+                      <strong>💡 Dá pra copiar?</strong>
+                      ${item.copyLabel ? `<span class="copy-pill ${cClass}">${item.copyLabel}</span>` : ""}
+                    </div>
+                    <div>${item.copyIdea}</div>
+                  </div>`
+                : ""
+            }
 
             <div class="sc-tags">
               ${(item.tags || []).map((tg) => `<span class="sc-tag">#${tg}</span>`).join("")}
